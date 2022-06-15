@@ -29,8 +29,6 @@ class nlp(object):
     
   def topic_model(self, svd_components):
     for topic_idx, topic in enumerate(svd_components):
-      print ("Topic %d:" % (topic_idx))
-      components = [svd_components[0,i] for i in topic.argsort()[:-self.num_topics - 1:-1]]
-      words = [feature_names[i] for i in topic.argsort()[:-self.num_topics - 1:-1]]
-      print(components)
-      print(words)
+      top_features_ind = topic.argsort()[:-self.num_topics - 1:-1]
+      top_features = [feature_names[i] for i in top_features_ind]
+      print(top_features)
