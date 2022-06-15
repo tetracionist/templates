@@ -2,9 +2,10 @@
 
 ## PySpark
 
-It's good practice to include the functions that you need rather than the entire functions library
+Libraries you'll need when working in pyspark.
+Important to use f as otherwise you can redefine in-built python functions such as max, min
 
-    from pyspark.sql.functions import col
-    from pyspark.sql.functions import coalesce, split
-    from pyspark.sql.functions to_timestamp, to_date, date_format
+    import pyspark.sql.functions as f
     from pyspark.sql.window import Window
+
+    
