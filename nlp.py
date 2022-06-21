@@ -4,7 +4,7 @@ class nlp(object):
     self.text_column = text_column
     self.ngram_words = ngram_words
     self.num_topics = num_topics
-    self.df = self.df.toPandas()
+    self.df = self.df.toPandas() # Only required if you have a pyspark dataframe
     
   def clean_text(self, text):
     return re.sub('[^A-Z a-z]+', '', text).lower()
@@ -28,7 +28,11 @@ class nlp(object):
     return svd.fit(data_vectorised) 
     
   def topic_model(self, svd_components):
+    df = pd.DataFrame(columns=['topic_'+str(i+1) for i in range(self.num_topics)])
     for topic_idx, topic in enumerate(svd_components):
       top_features_ind = topic.argsort()[:-self.num_topics - 1:-1]
       top_features = [feature_names[i] for i in top_features_ind]
-      print(top_features)
+      df_length = len(df)
+      df.loc[df_length] = top_features
+    return df
+    
